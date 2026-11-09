@@ -33,3 +33,4 @@ The included configuration uses blank webhook and user ID placeholders. Add your
 - Close any older copy of the macro before launching this one.
 
 This package does not include Roblox or modify Roblox files. It only sends the configured keyboard and mouse input while it is running.
+enojy
