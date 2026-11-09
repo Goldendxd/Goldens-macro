@@ -1,0 +1,4 @@
+Use this folder if T is not pressed.
+
+This is the previous version of the macro. Leave the main folder unchanged and
+try this copy instead if the updated T-key fix does not work.
