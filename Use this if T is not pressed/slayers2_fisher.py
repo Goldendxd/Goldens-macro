@@ -161,12 +161,19 @@ def detect(sub):
     return blob(tm, 14, 45, 14, 240), blob(sm, 12, 3, 10, 60)
 
 def prompt_score(img):
-    """Best template match of the T circle in img -> (score, cx, cy) relative to img."""
-    if img.shape[0] < TPL.shape[0] or img.shape[1] < TPL.shape[1]: return 0.0, 0, 0
+    """Best multi-scale template match of the T circle in img."""
     g = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    _, mx, _, loc = cv2.minMaxLoc(cv2.matchTemplate(g, TPL, cv2.TM_CCOEFF_NORMED))
-    if not np.isfinite(mx): mx = 0.0
-    return float(mx), loc[0] + TPL.shape[1] // 2, loc[1] + TPL.shape[0] // 2
+    best = (0.0, 0, 0)
+    for scale in (0.75, 0.85, 0.95, 1.0, 1.1, 1.25, 1.4):
+        w = max(8, round(TPL.shape[1] * scale))
+        h = max(8, round(TPL.shape[0] * scale))
+        template = cv2.resize(TPL, (w, h), interpolation=cv2.INTER_AREA if scale < 1 else cv2.INTER_CUBIC)
+        if g.shape[0] < h or g.shape[1] < w:
+            continue
+        _, mx, _, loc = cv2.minMaxLoc(cv2.matchTemplate(g, template, cv2.TM_CCOEFF_NORMED))
+        if np.isfinite(mx) and mx > best[0]:
+            best = (float(mx), loc[0] + w // 2, loc[1] + h // 2)
+    return best
 
 def toast_visible(img):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
