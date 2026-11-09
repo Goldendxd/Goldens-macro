@@ -1,0 +1,37 @@
+{
+  "webhook": "",
+  "user_id": "",
+  "highlight": "Ore",
+  "rod_key": "5",
+  "w_fail": true,
+  "w_dc": true,
+  "tune5": {
+    "lead": 0.07,
+    "damp": 0.05,
+    "dead": 4.0,
+    "confirm": 1.0,
+    "miss": 0.8,
+    "cycle": 4.5,
+    "recast": 0.8,
+    "invert": false
+  },
+  "track": [
+    1408,
+    308,
+    1472,
+    702
+  ],
+  "tbox": [
+    829,
+    330,
+    1135,
+    485
+  ],
+  "toast": [
+    959,
+    558,
+    1259,
+    623
+  ],
+  "cast_pt": null
+}
